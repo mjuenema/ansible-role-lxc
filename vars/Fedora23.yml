@@ -1,0 +1,27 @@
+---
+
+lxc_packages:
+  - lxc
+  - lxc-doc
+  - lxc-extra 
+  - lxc-templates
+  - lxc-devel
+  - lxc-libs
+  - lua-lxc
+  - python3-lxc
+  - libvirt
+
+lxc_build_dependencies:
+  - git
+  - automake
+  - gcc
+  - python3
+  - python3-setuptools
+  - python3-tools
+  - python3-devel
+  - lua
+  - lua-devel
+  - doxygen
+  - graphviz
+  - libcap
+  - libcap-devel

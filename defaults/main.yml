@@ -1,2 +1,45 @@
 ---
-# defaults file for mjuenema.lxc
+# mjuenema.lxc/defaults.yml
+
+
+
+
+# Install LXC from its Github repository?
+#
+lxc_from_git: false
+lxc_git_url: "https://github.com/lxc/lxc.git"
+lxc_git_branch: "master"
+
+
+# Arguments to ./configure when compiling from Git sources.
+# See lxc/configure --help for details.
+# 
+# TODO: set lxc_configure_with_distro to CentOS on EC2 ('Amazon')
+#
+lxc_configure_prefix: "/usr/local"
+lxc_configure_enable_deprecated: no  
+lxc_configure_enable_rpath: no
+lxc_configure_enable_doc: auto
+lxc_configure_enable_api_docs: auto
+lxc_configure_enable_apparmor: auto
+lxc_configure_enable_selinux: auto
+lxc_configure_enable_seccomp: auto
+lxc_configure_enable_cgmanager: auto
+lxc_configure_enable_capabilities: auto
+lxc_configure_enable_examples: yes
+lxc_configure_enable_python: auto
+lxc_configure_enable_mutex_debugging: no
+lxc_configure_enable_lua: auto
+lxc_configure_enable_bash: yes
+lxc_configure_enable_tests: no
+lxc_configure_enable_configpath_log: no
+lxc_configure_with_distro: {{ ansible_distribution | lower }}
+lxc_configure_with_init_script: {{ ansible_service_mgr }}
+lxc_configure_with_runtime_path=: "/run"
+lxc_configure_with_config_path: "dir  lxc configuration repository path"
+lxc_configure_with_global_conf: "dir  global lxc configuration file"
+lxc_configure_with_usernic_conf: "user network interface configuration file"
+lxc_configure_with_usernic_db: "lxc user nic database"
+lxc_configure_with_rootfs_path: "dir  lxc rootfs mount point"
+lxc_configure_with_cgroup_pattern: "pattern pattern for container cgroups"
+lxc_configure_with_log_path: "dir     per container log path"

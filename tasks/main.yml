@@ -1,2 +1,13 @@
 ---
-# tasks file for mjuenema.lxc
+# mjuenema.lxc/tasks.yml
+
+# Include OS family and distribution specific variables
+#
+- name: "Include distribution specific variables"
+  include_vars: {{ item }}
+  with_first_found: vars_files
+
+- name: "Include OS family specific tasks"
+  include: {{ item }}
+  with_first_found: task_files
+  
