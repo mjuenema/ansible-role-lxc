@@ -10,6 +10,12 @@ lxc_packages:
   - lua-lxc
   - python3-lxc
   - libvirt
+  - debootstrap
+  - libcap
+  - libselinux
+  - libseccomp
+  - gnutls
+  - gnutls-utils
 
 lxc_build_dependencies:
   - git
@@ -23,5 +29,7 @@ lxc_build_dependencies:
   - lua-devel
   - doxygen
   - graphviz
-  - libcap
   - libcap-devel
+  - libselinux-devel
+  - libseccomp-devel
+  - gnutls-devel

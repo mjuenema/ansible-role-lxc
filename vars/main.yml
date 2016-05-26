@@ -1,20 +1,6 @@
 ---
 
-# First one found will be used.
-# See https://github.com/ansible/ansible/issues/8881#issuecomment-56215518
-#
-# Example:
-#
-# - Fedora23.yml
-# - Fedora.yml
-# - RedHat.yml
-# 
-vars_files: 
-  - "{{ ansible_distribution }}{{ansible_distribution_major_version}}.yml"
-  - "{{ ansible_distribution }}.yml"
-  - "{{ ansible_os_family }}.yml"
+# mjuenema.lxc/vars/main.yml
 
-task_files: 
-  - "{{ ansible_distribution }}{{ansible_distribution_major_version}}.yml"
-  - "{{ ansible_distribution }}.yml"
-  - "{{ ansible_os_family }}.yml"
+lxc_defaults_conf_path: /etc/lxc/default.conf
+lxc_network_link: lxcbr0

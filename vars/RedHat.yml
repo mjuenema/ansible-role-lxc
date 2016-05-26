@@ -1,4 +1,6 @@
 ---
 # vars/RedHat.yml
 
-
+# On RedHat style systems the LXC network link (bridge) is
+# not lxcbr0 but virbr0.
+lxc_network_link: virbr0

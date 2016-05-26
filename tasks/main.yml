@@ -1,13 +1,82 @@
 ---
 # mjuenema.lxc/tasks.yml
-
-# Include OS family and distribution specific variables
 #
-- name: "Include distribution specific variables"
-  include_vars: {{ item }}
-  with_first_found: vars_files
+# TODO: put this on Gist
 
-- name: "Include OS family specific tasks"
-  include: {{ item }}
-  with_first_found: task_files
-  
+# Determine which distribution specific variable files exists and include them/
+#
+
+- name: "Check whether variables for OS family exists"
+  stat: path="{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+  register: file_osfamily_vars
+  delegate_to: 127.0.0.1
+
+- name: "Include variables for OS family"
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: file_osfamily_vars.stat.exists is defined and file_osfamily_vars.stat.exists
+
+
+- name: "Check whether variables for distribution exists"
+  stat: path="{{ role_path }}/vars/{{ ansible_distribution }}.yml"
+  register: file_dist_vars
+  delegate_to: 127.0.0.1
+
+- name: "Include variables for distribution"
+  include_vars: "{{ ansible_distribution }}.yml"
+  when: file_dist_vars.stat.exists is defined and file_dist_vars.stat.exists
+
+
+- name: "Check whether variables for distribution/version exists"
+  stat: path="{{ role_path }}/vars/{{ ansible_distribution }}{{ansible_distribution_major_version}}.yml"
+  register: file_dist_version_vars
+  delegate_to: 127.0.0.1
+
+- name: "Include variables for distribution/version"
+  include_vars: "{{ ansible_distribution }}{{ansible_distribution_major_version}}.yml"
+  when: file_dist_version_vars.stat.exists is defined and file_dist_version_vars.stat.exists
+
+
+# Determine which distribution specific task files exists and include them.
+#
+- name: "Check whether tasks file for OS family exists"
+  stat: path="{{ role_path }}/tasks/{{ ansible_os_family }}.yml"
+  register: file_osfamily_tasks
+  delegate_to: 127.0.0.1
+
+- name: "Include tasks for OS family"
+  include: "{{ ansible_os_family }}.yml"
+  when: file_osfamily_tasks.stat.exists is defined and file_osfamily_tasks.stat.exists
+
+
+- name: "Check whether tasks file for distribution exists"
+  stat: path="{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: file_dist_tasks
+  delegate_to: 127.0.0.1
+
+- name: "Include tasks for distribution"
+  include: "{{ ansible_distribution }}.yml"
+  when: file_dist_tasks.stat.exists is defined and file_dist_tasks.stat.exists
+
+
+- name: "Check whether tasks file for distribution/version exists"
+  stat: path="{{ role_path }}/tasks/{{ ansible_distribution }}{{ansible_distribution_major_version}}.yml"
+  register: file_dist_version_tasks
+  delegate_to: 127.0.0.1
+
+- name: "Include tasks for distribution/version"
+  include: "{{ ansible_distribution }}{{ansible_distribution_major_version}}.yml"
+  when: file_dist_version_tasks.stat.exists is defined and file_dist_version_tasks.stat.exists
+
+
+- name: "Include installation from Git tasks"
+  include: "install_from_git.yml"
+  when: lxc_install_from_git
+
+
+- name: "Configure LXC defaults.conf"
+  template: src="etc_lxc_default.conf.j2"
+            dest="{{ lxc_defaults_conf_path }}"
+            owner=root
+            group=root
+            mode=0644
+

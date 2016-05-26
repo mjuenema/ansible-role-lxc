@@ -1,0 +1,31 @@
+---
+
+# mjuenema.lxc/tasks/install_from_git.yml
+
+# Install from Git
+#
+
+# TODO: set some facts based on lxc_configure_*
+#       - lxc_network_link
+
+- name: "Install LXC build dependencies"
+  yum: name="{{ item }}"
+  with_items: "{{ lxc_build_dependencies }}"
+  when: lxc_install_from_git == True
+
+- name: "Create temporary folder for LXC Git clone"
+  shell: mktemp -d
+  register: mktemp
+  when: lxc_install_from_git == True
+
+- name: "Clone LXC Git repository"
+  git: name={{ lxc_git_url }}
+       dest={{ mktemp.stdout }}
+  when: lxc_install_from_git == True
+
+- name: "Cleanup temporary folder"
+  file: name={{ mktemp.stdout }}
+        state=absent
+  when: lxc_install_from_git == True
+
+

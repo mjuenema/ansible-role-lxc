@@ -6,36 +6,12 @@
 # Install from packages
 #
 - name: "Install LXC packages"
-  yum: name={{ item }}
-  with_items: lxc_packages
-  when: lxc_from_git == False
+  yum: name="{{ item }}"
+  with_items: "{{ lxc_packages }}"
+  when: lxc_install_from_git == False
 
 - name: "Enable and start libvirtd"
   service: name=libvirtd
            state=started
            enabled=yes
-  when: lxc_from_git == False
-
-
-# Install from Git
-#
-- name: "Install LXC build dependencies"
-  yum: name={{ item }}
-  with_items: lxc_build_dependencies
-  when: lxc_from_git == True
-
-- name: "Create temporary folder for LXC Git clone"
-  shell: mktemp -d
-  register: mktemp
-  when: lxc_from_git == True
-
-- name: "Clone LXC Git repository"
-  git: name={{ lxc_git_url }}
-       dest={{ mktemp.stdout }}
-  when: lxc_from_git == True
-
-- name: "Cleanup temporary folder"
-  file: name={{ mktemp.stdout }}
-        state=absent
-
-
+  when: lxc_install_from_git == False

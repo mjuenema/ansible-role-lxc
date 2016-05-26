@@ -1,38 +1,66 @@
-Role Name
-=========
+mjuenema.lxc
+============
 
-A brief description of the role goes here.
+Ansible role for installing LXC either from system packages or its Git repository.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+All packages that are required will be installed by the role.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The ```lxc_install_from_git``` variable determines whether LXC will be installed from
+its Git repository or whether the package provided by the Linux distribution will
+be used. The default is to use the packages provided by the Linux distribution. 
+
+There are a number of general and distribution specific variables that are used. Check 
+the ```defaults/main.yml``` and ```vars/*.yml``` files for details. 
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+There are no dependencies on other Ansible roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Install LXC through the packages provided by the Linux distribution.
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: mjuenema.lxc }
 
 License
 -------
 
 BSD
 
+Supported distributions
+-----------------------
+
+This role is tested on the following Linux distributions.
+
+* Fedora 23+
+* CentOS 7+
+* (more to come)
+
+Status
+------
+
+Alpha
+
+References
+----------
+
+The following references were used while developing this Ansible role.
+
+* https://linuxcontainers.org/
+* https://fedoraproject.org/wiki/LXC
+* http://www.tecmint.com/install-create-run-lxc-linux-containers-on-centos/
+
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Markus Juenemann <markus@juenemann.net>
