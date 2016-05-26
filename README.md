@@ -16,7 +16,7 @@ its Git repository or whether the package provided by the Linux distribution wil
 be used. The default is to use the packages provided by the Linux distribution. 
 
 There are a number of general and distribution specific variables that are used. Check 
-the ```defaults/main.yml``` and ```vars/*.yml``` files for details. 
+```defaults/main.yml``` and ```vars/*.yml``` files for details. 
 
 Dependencies
 ------------
@@ -31,6 +31,14 @@ Install LXC through the packages provided by the Linux distribution.
     - hosts: servers
       roles:
          - { role: mjuenema.lxc }
+
+
+Install LXC from its Git repository. Have a look at ```defaults/main.yml``` first as it
+defines the arguments for the ```./configure ...``` step.
+
+    - hosts: servers
+      roles:
+         - { role: mjuenema.lxc, lxc_install_from_git: true }
 
 License
 -------

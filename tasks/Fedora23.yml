@@ -1,0 +1,14 @@
+---
+# tasks/Fedora23.yml
+
+# There is an issue with lxc-create calling yum which is deprecated
+# in Fedora 22+. The work-around described on the page listed below 
+# is implemented here.
+#
+# http://www.kianmeng.org/2015/05/linux-containers-lxc-in-fedora-22.html
+
+- name: "Create /usr/bin/yum -> /usr/bin/yum-deprecated symlink"
+  file: src=/usr/bin/yum-deprecated
+        path=/usr/bin/yum
+        state=link
+        force=yes
