@@ -13,19 +13,22 @@
   with_items: "{{ lxc_build_dependencies }}"
   when: lxc_install_from_git == True
 
-- name: "Create temporary folder for LXC Git clone"
-  shell: mktemp -d
-  register: mktemp
+- name: "Set random UUID"
+  set_fact: random_uuid="{{ ansible_date_time.iso8601_micro | to_uuid }}"
+  when: lxc_install_from_git == True
+
+- name: "Show random UUID"
+  debug: msg="{{ random_uuid }}"
   when: lxc_install_from_git == True
 
 - name: "Clone LXC Git repository"
-  git: name={{ lxc_git_url }}
-       dest={{ mktemp.stdout }}
+  git: name="{{ lxc_git_url }}"
+       dest="/tmp/{{ random_uuid }}"
   when: lxc_install_from_git == True
 
-- name: "Cleanup temporary folder"
-  file: name={{ mktemp.stdout }}
-        state=absent
-  when: lxc_install_from_git == True
+- name: "Run autogen.sh"
+  command: ./autogen.sh creates=configure chdir="/tmp/{{ random_uuid }}"
 
+- name: "Run configure.sh"
+  command: ./configure creates=Makefile chdir="/tmp/{{ random_uuid }}"
 
