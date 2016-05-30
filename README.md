@@ -40,6 +40,11 @@ defines the arguments for the ```./configure ...``` step.
       roles:
          - { role: mjuenema.lxc, lxc_install_from_git: true }
 
+Testing
+-------
+
+    ansible-playbook --check -i mjuenema.lxc/tests/inventory mjuenema.lxc/tests/test.yml
+
 License
 -------
 
