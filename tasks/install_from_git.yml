@@ -24,6 +24,7 @@
 - name: "Clone LXC Git repository"
   git: name="{{ lxc_git_url }}"
        dest="/tmp/{{ random_uuid }}"
+       version="{{ lxc_git_branch }}"
   when: lxc_install_from_git == True
 
 - name: "Run autogen.sh"
