@@ -1,5 +1,5 @@
 ---
 - hosts: localhost
-  connection: localhost
+  connection: local
   roles:
     - mjuenema.lxc
