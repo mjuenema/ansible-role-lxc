@@ -26,6 +26,17 @@ There are no dependencies on other Ansible roles.
 Example Playbook
 ----------------
 
+The role can be installed from Ansible Galaxy.
+
+    cd roles/
+    ansible-galaxy install mjuenema.lxc
+
+Alternatively clone the Github repository.
+
+    cd roles/
+    git clone https://github.com/mjuenema/ansible-role-lxc.git mjuenema.lxc
+    
+
 Install LXC through the packages provided by the Linux distribution.
 
     - hosts: servers
